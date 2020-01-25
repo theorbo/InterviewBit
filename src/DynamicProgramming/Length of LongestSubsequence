@@ -1,0 +1,56 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int longestSubsequenceLength(final List<Integer> A) {
+        
+        if(A.size() == 0)
+        return 0;
+        
+        int[] LIS = longestIncreasingSubsequence(A);
+        int[] LDS = longestDecreasingSubsequence(A);
+        
+        int max = -1;
+        
+        for(int i = 0; i < A.size();i++){
+            if(max < LIS[i]+LDS[i]-1){
+                max = LIS[i]+LDS[i]- 1;
+            }
+        }
+       return max; 
+    }
+    
+    public int[] initialize(List<Integer> A){
+     int[] LIS = new int[A.size()];
+     for(int i = 0; i < A.size(); i++){
+         LIS[i] = 1;
+     }
+     return LIS;
+    }
+    
+    public int[] longestIncreasingSubsequence(List<Integer> A){
+        int[] LIS = initialize(A);
+        int i, j;
+        for(i = 1; i < A.size(); i++){
+            for(j = 0; j < i; j++){
+                if(A.get(i) > A.get(j) && LIS[i] < LIS[j]+1){
+                    LIS[i] = LIS[j]+1;
+                }
+            }
+        }
+       // print(LIS);
+        return LIS;
+    }
+    
+    public int[] longestDecreasingSubsequence(List<Integer> A){
+        int[] LIS = initialize(A);
+        int i, j;
+        for(i = A.size()-2; i >= 0; i--){
+            for(j = A.size()-1; j > i; j--){
+                if(A.get(i) > A.get(j) && LIS[i] < LIS[j]+1){
+                    LIS[i] = LIS[j]+1;
+                }
+            }
+        }
+        //print(LIS);
+        return LIS;
+    }
+}
