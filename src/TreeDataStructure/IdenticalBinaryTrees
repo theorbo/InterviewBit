@@ -1,0 +1,36 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    
+    public boolean isSame(TreeNode A, TreeNode B){
+       if(A == null && B == null)
+            return true;
+        else if(A == null)
+            return false;
+        else if(B == null)
+            return false;
+        else{
+            return isSame(A.left, B.left) && isSame(A.right, B.right) &&
+            A.val == B.val;
+        }    
+    }
+    public int isSameTree(TreeNode A, TreeNode B) {
+        
+        if(isSame(A, B))
+            return 1;
+        else    
+            return 0;    
+            
+    }
+}
