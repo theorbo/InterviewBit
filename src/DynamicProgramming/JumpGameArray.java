@@ -36,3 +36,34 @@ public class Solution {
        
     }
 }
+
+
+
+// Greedy Solution
+
+public class Solution {
+    public int canJump(ArrayList<Integer> A) {
+        
+        if(A.size() <= 1){
+            return 1;
+        }
+        
+        int maxReach = 0;
+        int step = 1;
+        
+        for(int i = 0; i < A.size(); i++){
+            step--;
+            
+            if(i+A.get(i) > maxReach){
+                maxReach = i+A.get(i);
+                step = A.get(i);
+            }
+            
+            if(step == 0 && i < A.size()-1){
+                return 0;
+            }
+        }
+        return 1;
+    }
+}
+
