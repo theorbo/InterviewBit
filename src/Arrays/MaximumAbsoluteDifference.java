@@ -1,82 +1,17 @@
-package Arrays;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-public class MaximumAbsoluteDifference {
-
-  class Node{
-
-    int value;
-    int index;
-    int addValue;
-    int subValue;
-
-    Node(int value, int index, int addValue, int subValue){
-      this.value = value;
-      this.index = index;
-      this.addValue = addValue;
-      this.subValue = subValue;
-    }
-  }
+public class Solution {
   public int maxArr(ArrayList<Integer> A) {
-    int i;
-    List<Node> nodes = new ArrayList<Node>();
-
-    for(i = 0; i < A.size(); i++){
-      int val = Integer.valueOf(A.get(i));
-      nodes.add(new Node(val, i, val+i, val - i));
-    }
-
-    Collections.sort(nodes, new Comparator<Node>(){
-      public int compare(Node a, Node b){
-
-        if(a.addValue < b.addValue)
-          return -1;
-        else if(a.addValue == b.addValue)
-          return 0;
-        else
-          return 1;
+    int max1=Integer.MIN_VALUE;
+      int min1=Integer.MAX_VALUE;
+      int max2=Integer.MIN_VALUE;
+      int min2=Integer.MAX_VALUE;
+      for(int i=0;i<A.size();i++)
+      {
+         max1=Math.max(max1,A.get(i)+i);
+         min1=Math.min(min1,A.get(i)+i);
+         max2=Math.max(max2,A.get(i)-i);
+         min2=Math.min(min2,A.get(i)-i);
       }
-    });
-
-    int len = nodes.size();
-    int addmin = nodes.get(0).addValue;
-    int addmax = nodes.get(len-1).addValue;
-
-    Collections.sort(nodes, new Comparator<Node>(){
-      public int compare(Node a, Node b){
-
-        if(a.subValue < b.subValue)
-          return -1;
-        else if(a.subValue == b.subValue)
-          return 0;
-        else
-          return 1;
-      }
-    });
-
-    int submin = nodes.get(0).subValue;
-    int submax = nodes.get(len-1).subValue;
-
-    return Math.max(addmax - addmin, submax - submin);
+     return Math.max((max1-min1),(max2-min2));
 
   }
-
-  public static void main(String args[]){
-
-    ArrayList<Integer> list = new ArrayList<Integer>();
-
-    list.add(1);
-    list.add(3);
-    list.add(-1);
-
-    MaximumAbsoluteDifference maximumAbsoluteDifference = new MaximumAbsoluteDifference();
-
-    System.out.println(maximumAbsoluteDifference.maxArr(list));
-
-  }
-
 }
