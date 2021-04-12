@@ -1,0 +1,41 @@
+/**
+Given a binary tree A of integers. Return an array of integers representing the right view of the Binary tree.
+
+Right view of a Binary Tree: is a set of nodes visible when the tree is visited from Right side.*/
+
+ /* Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+ 
+public class Solution {
+    public ArrayList<Integer> solve(TreeNode A) {
+        
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(A);
+        
+        while(queue.size() > 0){
+            int n = queue.size();
+            for(int i =1; i <= n; i++){
+                TreeNode temp = queue.poll();
+                if(i == n)
+                result.add(temp.val);
+                if(temp.left != null)
+                queue.add(temp.left);
+            if(temp.right != null)
+                queue.add(temp.right);
+            }
+            
+        }
+        return temp;
+    }
+}
