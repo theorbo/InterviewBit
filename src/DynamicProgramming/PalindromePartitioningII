@@ -1,0 +1,76 @@
+/* Given a string A, partition A such that every substring of the partition is a palindrome.
+
+Return the minimum cuts needed for a palindrome partitioning of A. */
+
+public class Solution {
+    
+    int[][] t;
+    public int minCut(String A) {
+        int len = A.length();
+        t = new int[len][len];
+        initialize(len);
+        return solve(A, 0, len-1);
+    }
+    
+    private void initialize(int size){
+        
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                t[i][j] = -1;
+            }
+        }
+    }
+    
+    private boolean isPalindrome(String S, int i, int j){
+        
+        if(i >= j)
+            return true;
+            
+        while(i < j){
+            if(S.charAt(i) != S.charAt(j))
+                return false;
+            i++;
+            j--;
+            
+        }  
+        return true;
+    }
+    
+    private int solve(String S, int i, int j){
+        
+        if(i >= j)
+            return 0;
+    
+        if(isPalindrome(S, i, j) == true)  
+            return 0;
+            
+         
+        if(t[i][j] != -1)
+            return t[i][j];    
+        
+        int num = Integer.MAX_VALUE;
+        
+        for(int k = i; k <= j-1; k++){
+            //int temp = 1 + solve(S, i , k) + solve(S, k+1, j);
+            int left = 0, right = 0;
+            if(t[i][k] != -1)
+                left = t[i][k];
+            else
+                left = solve(S, i , k);
+            t[i][k] = left;
+            
+            if(t[k+1][j] != -1)
+                right = t[k+1][j];
+            else
+                right = solve(S, k+1, j);
+            t[k+1][j] = right;
+            
+            int temp = 1+left+right;
+                
+            
+            num = Math.min(num, temp);
+        }
+        return num;
+            
+    }
+}
